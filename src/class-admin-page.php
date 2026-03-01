@@ -33,6 +33,7 @@ class Admin_Page {
 		add_action( 'admin_menu', array( $this, 'add_menu_page' ), 10 );
 		add_action( 'admin_post_gc_ig_import_glossary', array( $this, 'handle_glossary_import' ) );
 		add_action( 'admin_notices', array( $this, 'admin_notices' ) );
+		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 	}
 
 	/**
@@ -126,27 +127,6 @@ class Admin_Page {
 				</td>
 			</tr>
 		</table>
-		<style>
-			.import-locales-checkboxes label {
-				width: 33%;
-				display: inline-block;
-			}
-			.import-locales-checkboxes label span {
-				font-size: 0.8em;
-				opacity: 0.7;
-			}
-			@media screen and (max-width: 782px) {
-				.import-locales-checkboxes label {
-					line-height: 2.3;
-				}
-			}
-		</style>
-		<script>
-			document.getElementById('import_locales_all').addEventListener('change', function() {
-				const checkboxes = document.querySelectorAll('input[name="import_locales[]"]');
-				checkboxes.forEach(checkbox => checkbox.checked = this.checked);
-			});
-		</script>
 		<?php
 	}
 
@@ -243,5 +223,21 @@ class Admin_Page {
 			</div>
 			<?php
 		}
+	}
+
+	/**
+	 * Enqueue admin scripts.
+	 *
+	 * @param string $hook_suffix The current admin page.
+	 *
+	 * @return void
+	 */
+	public function enqueue_scripts( $hook_suffix ): void {
+		if ( 'tools_page_glotcore-import-glossaries' !== $hook_suffix ) {
+			return;
+		}
+
+		wp_enqueue_script( 'gc-ig-admin', plugins_url( 'assets/js/admin.js', __DIR__ ), array(), GC_IG_VERSION, true );
+		wp_enqueue_style( 'gc-ig-admin', plugins_url( 'assets/css/admin.css', __DIR__ ), array(), GC_IG_VERSION );
 	}
 }

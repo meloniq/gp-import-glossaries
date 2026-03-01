@@ -31,6 +31,7 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 define( 'GC_IG_TD', 'glotcore-import-glossaries' );
+define( 'GC_IG_VERSION', '1.0' );
 define( 'GC_IG_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'GC_IG_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 

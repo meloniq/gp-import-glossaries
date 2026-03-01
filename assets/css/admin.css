@@ -1,0 +1,15 @@
+.import-locales-checkboxes label {
+	width: 33%;
+	display: inline-block;
+}
+
+.import-locales-checkboxes label span {
+	font-size: 0.8em;
+	opacity: 0.7;
+}
+
+@media screen and (max-width: 782px) {
+	.import-locales-checkboxes label {
+		line-height: 2.3;
+	}
+}
